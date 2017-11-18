@@ -35,7 +35,7 @@ defmodule ExploComm.Mandrill do
       }
     }
 
-    headers = [ "Content-Type": "application/json" ]
+    headers = [ {"Content-Type", "application/json"} ]
     endpoint = "#{api_url()}/messages/send.json"
 
     HTTPoison.post(endpoint, body, headers)

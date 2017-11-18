@@ -31,8 +31,8 @@ defmodule ExploComm.HipChat do
       message: "#{mentions}#{message}"
     }
     headers = [
-      "Content-Type": "application/json",
-      "Authorization": "Bearer #{api_token()}"
+      {"Content-Type", "application/json"},
+      {"Authorization", "Bearer #{api_token()}"}
     ]
     endpoint = "#{api_url()}/room/#{room}/notification"
 
