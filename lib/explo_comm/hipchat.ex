@@ -20,6 +20,8 @@ defmodule ExploComm.HipChat do
   receive a notification
   - `:room` (Integer) - The ID of the room to which to post the message
   """
+  @spec send_notification(String.t(), keyword()) ::
+    {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_notification(message, options \\ []) do
     mentions = format_mentions(Keyword.get(options, :mentions, []))
     room = Keyword.get(options, :room) || default_room()

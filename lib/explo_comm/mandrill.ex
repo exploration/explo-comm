@@ -23,6 +23,8 @@ defmodule ExploComm.Mandrill do
   - `:subject` (String) - The subject of the email
   - `:from` (String) - The name to put in the FROM field for the email
   """
+  @spec send_email(String.t(), [String.t()], keyword()) ::
+    {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_email(message, email_list, options \\ []) do
     body = Poison.encode! %{
       key: api_key(),

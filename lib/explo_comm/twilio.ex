@@ -19,6 +19,8 @@ defmodule ExploComm.Twilio do
   service configured, which will take care of populating the number that sends
   the message.
   """
+  @spec send_sms(String.t(), String.t(), keyword()) ::
+    {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_sms(message, to, options \\ []) do
     from = Keyword.get(options, :from) || default_from()
     body = URI.encode_query %{ "From": from, "To": to, "Body": message }
@@ -36,6 +38,7 @@ defmodule ExploComm.Twilio do
   This function isn't smart enough to know about international, so
   international numbers are hopefully formatted properly.
   """
+  @spec format_phone(String.t()) :: String.t()
   def format_phone(number) do
     number = String.replace(number, ~r/[-.\/() ]/, "")
     case String.starts_with?(number, "+") do
