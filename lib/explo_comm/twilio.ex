@@ -23,8 +23,8 @@ defmodule ExploComm.Twilio do
     {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_sms(message, to, options \\ []) do
     from = Keyword.get(options, :from) || default_from()
-    body = URI.encode_query %{ "From": from, "To": to, "Body": message }
-    headers = [ {"Content-Type", "application/x-www-form-urlencoded"} ]
+    body = URI.encode_query %{"From": from, "To": to, "Body": message}
+    headers = [{"Content-Type", "application/x-www-form-urlencoded"}]
     endpoint = "#{api_url()}/Accounts/#{account_id()}/Messages.json"
     options = [hackney: [basic_auth: {account_id(), api_token()}]]
 
