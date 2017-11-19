@@ -40,5 +40,6 @@ you'll very likely want to set the following config vars in your application:
       twilio_api_url: "https://api.twilio.com/2010-04-0",
       twilio_default_from: "+16178675309"
 
-These configuration variables can alternatively be set as environment variables in all-caps eg `export HIPCHAT_API_TOKEN="mytoken"` .
+These configuration variables can alternatively be set as environment variables
+in all-caps eg `export HIPCHAT_API_TOKEN="mytoken"` .
 
