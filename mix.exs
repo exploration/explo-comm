@@ -4,8 +4,8 @@ defmodule ExploComm.Mixfile do
   def project do
     [
       app: :explo_comm,
-      version: "1.1.0",
-      elixir: "~> 1.6",
+      version: "2.0.0",
+      elixir: "~> 1.11",
       start_permanent: Mix.env == :prod,
       deps: deps()
     ]
@@ -21,9 +21,9 @@ defmodule ExploComm.Mixfile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, "~> 0.9.0-rc1", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:httpoison, "~> 0.13"},
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:httpoison, "~> 1.6"},
       {:poison, "~> 3.1"}
     ]
   end

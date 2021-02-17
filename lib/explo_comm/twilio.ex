@@ -1,5 +1,4 @@
 defmodule ExploComm.Twilio do
-
   @moduledoc """
   This is basically a module for sending an SMS through Twilio, which is all we
   ever really want to do with Twilio.
@@ -7,7 +6,7 @@ defmodule ExploComm.Twilio do
   There are some configuration options you can set for this module, which can
   be set as `ALL_CAPS` environment variables, or in `config.exs` as such:
 
-      config :explo_comm,
+      config ExploComm,
         twilio_account_id: "account_id",
         twilio_api_token: "password",
         twilio_api_url: "https://api.twilio.com/2010-04-0",
@@ -53,25 +52,23 @@ defmodule ExploComm.Twilio do
 
   defp account_id() do
     System.get_env("TWILIO_ACCOUNT_ID") ||
-    Application.get_env(:explo_comm, :twilio_account_id)
+    Application.get_env(ExploComm, :twilio_account_id)
   end
 
   defp api_token() do
     System.get_env("TWILIO_API_TOKEN") ||
-    Application.get_env(:explo_comm, :twilio_api_token)
+    Application.get_env(ExploComm, :twilio_api_token)
   end
 
   defp api_url() do
     System.get_env("TWILIO_API_URL") ||
-    Application.get_env(:explo_comm, :twilio_api_url) ||
+    Application.get_env(ExploComm, :twilio_api_url) ||
     "https://api.twilio.com/2010-04-01"
   end
 
   defp default_from() do
     System.get_env("TWILIO_DEFAULT_FROM") ||
-    Application.get_env(:explo_comm, :twilio_default_from) ||
+    Application.get_env(ExploComm, :twilio_default_from) ||
     "+14158539756"
   end
-
 end
-
