@@ -3,8 +3,7 @@ defmodule ExploComm.Twilio do
   This is basically a module for sending an SMS through Twilio, which is all we
   ever really want to do with Twilio.
 
-  There are some configuration options you can set for this module, which can
-  be set as `ALL_CAPS` environment variables, or in `config.exs` as such:
+  There are some configuration options you can set for this module in `config.exs` as such:
 
       config ExploComm,
         twilio_account_id: "account_id",
@@ -14,9 +13,20 @@ defmodule ExploComm.Twilio do
   """
 
   @doc """
-  Send an SMS through Twilio. This setup assumes that you have a messaging
-  service configured, which will take care of populating the number that sends
-  the message.
+  Send an SMS through Twilio. This setup assumes that you have a
+  messaging service configured, which will take care of populating
+  the number that sends the message.
+
+  ## Options
+  
+  The following keyword options are accepted:
+
+  - `:from` (String) - The phone number sending the message. This should be a valid number on the account.
+
+  ## Examples
+
+      iex> Twilio.send_sms("my message", "6171234567")
+      {:ok, %HTTPoison.Response{}}
   """
   @spec send_sms(String.t(), String.t(), keyword()) ::
     {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
@@ -51,23 +61,25 @@ defmodule ExploComm.Twilio do
   end
 
   defp account_id() do
-    System.get_env("TWILIO_ACCOUNT_ID") ||
-    Application.get_env(ExploComm, :twilio_account_id)
+    Application.get_env(ExploComm, :twilio_account_id) ||
+      raise """
+      Missing configuration variable ExploComm, :twilio_account_id
+      """
   end
 
   defp api_token() do
-    System.get_env("TWILIO_API_TOKEN") ||
-    Application.get_env(ExploComm, :twilio_api_token)
+    Application.get_env(ExploComm, :twilio_api_token) ||
+      raise """
+      Missing configuration variable ExploComm, :twilio_api_token
+      """
   end
 
   defp api_url() do
-    System.get_env("TWILIO_API_URL") ||
     Application.get_env(ExploComm, :twilio_api_url) ||
     "https://api.twilio.com/2010-04-01"
   end
 
   defp default_from() do
-    System.get_env("TWILIO_DEFAULT_FROM") ||
     Application.get_env(ExploComm, :twilio_default_from) ||
     "+14158539756"
   end

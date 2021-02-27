@@ -4,7 +4,15 @@ defmodule ExploComm.Chat do
   """
 
   @doc """
-  Send a notification message through a Chat URL.
+  Send a notification message through a Google Chat URL.
+
+  Returns the result of `HTTPoison.post/4` to the given chat endpoint url.
+
+  ## Examples
+  
+      iex> Chat.send_notification("neat", "https://chat.google.com/etc")
+      {:ok, %HTTPoison.Response{}}
+      
   """
   @spec send_notification(String.t(), String.t()) ::
     {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
