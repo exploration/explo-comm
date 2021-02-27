@@ -4,9 +4,9 @@ defmodule ExploComm.Mixfile do
   def project do
     [
       app: :explo_comm,
-      version: "2.0.0",
+      version: "2.1.0",
       elixir: "~> 1.11",
-      start_permanent: Mix.env == :prod,
+      start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
   end
@@ -24,7 +24,8 @@ defmodule ExploComm.Mixfile do
       {:credo, "~> 1.4", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:httpoison, "~> 1.6"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:ex_doc, "~> 0.22", only: :dev, runtime: false}
     ]
   end
 end

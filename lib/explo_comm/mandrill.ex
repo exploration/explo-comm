@@ -20,7 +20,7 @@ defmodule ExploComm.Mandrill do
   Returns the POST result from Mandrill, similar to the result of any `HTTPoison.post/4`
 
   You can include a keyword list of options. Available options include:
-  
+
   - `:subject` (String) - The subject of the email
   - `:from` (String) - The name to put in the FROM field for the email
 
@@ -30,25 +30,25 @@ defmodule ExploComm.Mandrill do
       {:ok, %HTTPoison.Response{}}
   """
   @spec send_email(String.t(), [String.t()], keyword()) ::
-    {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
+          {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_email(message, email_list, options \\ []) do
-    body = Poison.encode! %{
-      key: api_key(),
-      message: %{
-        text: message,
-        subject: Keyword.get(options, :subject) || "EXPLO Apps: Notification",
-        from_name: Keyword.get(options, :from) || default_from(),
-        from_email: Keyword.get(options, :from_email) || default_from_email(),
-        to: parse_recipients(email_list)
-      }
-    }
+    body =
+      Poison.encode!(%{
+        key: api_key(),
+        message: %{
+          text: message,
+          subject: Keyword.get(options, :subject) || "EXPLO Apps: Notification",
+          from_name: Keyword.get(options, :from) || default_from(),
+          from_email: Keyword.get(options, :from_email) || default_from_email(),
+          to: parse_recipients(email_list)
+        }
+      })
 
     headers = [{"Content-Type", "application/json"}]
     endpoint = "#{api_url()}/messages/send.json"
 
     HTTPoison.post(endpoint, body, headers)
   end
-
 
   defp api_key() do
     Application.get_env(ExploComm, :mandrill_api_key) ||
@@ -58,22 +58,21 @@ defmodule ExploComm.Mandrill do
   end
 
   defp api_url() do
-    Application.get_env(ExploComm, :mandrill_api_url) || 
-    "https://mandrillapp.com/api/1.0/"
+    Application.get_env(ExploComm, :mandrill_api_url) ||
+      "https://mandrillapp.com/api/1.0/"
   end
 
   defp default_from() do
     Application.get_env(ExploComm, :mandrill_default_from) ||
-    "EXPLO Robot"
+      "EXPLO Robot"
   end
 
   defp default_from_email() do
     Application.get_env(ExploComm, :mandrill_default_from_email) ||
-    "it@explo.org"
+      "it@explo.org"
   end
 
   defp parse_recipients(email_list) do
     Enum.map(email_list, fn email -> %{email: email} end)
   end
 end
-

@@ -18,7 +18,7 @@ defmodule ExploComm.Twilio do
   the number that sends the message.
 
   ## Options
-  
+
   The following keyword options are accepted:
 
   - `:from` (String) - The phone number sending the message. This should be a valid number on the account.
@@ -29,10 +29,10 @@ defmodule ExploComm.Twilio do
       {:ok, %HTTPoison.Response{}}
   """
   @spec send_sms(String.t(), String.t(), keyword()) ::
-    {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
+          {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
   def send_sms(message, to, options \\ []) do
     from = Keyword.get(options, :from) || default_from()
-    body = URI.encode_query %{"From": from, "To": to, "Body": message}
+    body = URI.encode_query(%{From: from, To: to, Body: message})
     headers = [{"Content-Type", "application/x-www-form-urlencoded"}]
     endpoint = "#{api_url()}/Accounts/#{account_id()}/Messages.json"
     options = [hackney: [basic_auth: {account_id(), api_token()}]]
@@ -50,8 +50,11 @@ defmodule ExploComm.Twilio do
   @spec format_phone(String.t()) :: String.t()
   def format_phone(number) do
     number = String.replace(number, ~r/[-.\/() ]/, "")
+
     case String.starts_with?(number, "+") do
-      true -> number
+      true ->
+        number
+
       false ->
         case String.starts_with?(number, "1") do
           true -> "+" <> number
@@ -76,11 +79,11 @@ defmodule ExploComm.Twilio do
 
   defp api_url() do
     Application.get_env(ExploComm, :twilio_api_url) ||
-    "https://api.twilio.com/2010-04-01"
+      "https://api.twilio.com/2010-04-01"
   end
 
   defp default_from() do
     Application.get_env(ExploComm, :twilio_default_from) ||
-    "+14158539756"
+      "+14158539756"
   end
 end
