@@ -14,8 +14,9 @@ defmodule ExploComm.Mandrill do
   """
 
   @doc """
-  Send an email message through Mandrill. Expects a string message,
-  and an array of emails in email_list.
+  Send an email message through Mandrill. 
+
+  Expects a string message, and an array of emails in email_list.
 
   Returns the POST result from Mandrill, similar to the result of any `HTTPoison.post/4`
 

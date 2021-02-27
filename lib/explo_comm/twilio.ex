@@ -13,9 +13,36 @@ defmodule ExploComm.Twilio do
   """
 
   @doc """
-  Send an SMS through Twilio. This setup assumes that you have a
-  messaging service configured, which will take care of populating
-  the number that sends the message.
+  Format a phone number for Twilio.
+
+  Strip the number of  all non-numeric characters, then prepend a `+1` unless
+  there's already a `+`.
+
+  This function isn't smart enough to know about international, so
+  international numbers are hopefully formatted properly.
+  """
+  @spec format_phone(String.t()) :: String.t()
+  def format_phone(number) do
+    number = String.replace(number, ~r/[-.\/() ]/, "")
+
+    case String.starts_with?(number, "+") do
+      true ->
+        number
+
+      false ->
+        case String.starts_with?(number, "1") do
+          true -> "+" <> number
+          false -> "+1" <> number
+        end
+    end
+  end
+
+  @doc """
+  Send an SMS through Twilio. 
+
+  This setup assumes that you have a messaging service configured,
+  which will take care of populating the number that sends the
+  message.
 
   ## Options
 
@@ -38,29 +65,6 @@ defmodule ExploComm.Twilio do
     options = [hackney: [basic_auth: {account_id(), api_token()}]]
 
     HTTPoison.post(endpoint, body, headers, options)
-  end
-
-  @doc """
-  Given a phone number, format it for Twilio - strip all non-numeric
-  characters, then prepend a +1 unless there's already a +.
-
-  This function isn't smart enough to know about international, so
-  international numbers are hopefully formatted properly.
-  """
-  @spec format_phone(String.t()) :: String.t()
-  def format_phone(number) do
-    number = String.replace(number, ~r/[-.\/() ]/, "")
-
-    case String.starts_with?(number, "+") do
-      true ->
-        number
-
-      false ->
-        case String.starts_with?(number, "1") do
-          true -> "+" <> number
-          false -> "+1" <> number
-        end
-    end
   end
 
   defp account_id() do
