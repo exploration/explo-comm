@@ -1,6 +1,6 @@
 defmodule ExploComm.Chat do
   @moduledoc """
-  Just the Chat functions we need at EXPLO, ma'am. Nothing else. 
+  Just the Chat functions we need at EXPLO, ma'am. 
   """
 
   @doc """

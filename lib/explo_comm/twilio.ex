@@ -1,7 +1,6 @@
 defmodule ExploComm.Twilio do
   @moduledoc """
-  This is basically a module for sending an SMS through Twilio, which is all we
-  ever really want to do with Twilio.
+  Send an SMS through Twilio.
 
   There are some configuration options you can set for this module in `config.exs` as such:
 
