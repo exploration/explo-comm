@@ -4,7 +4,7 @@ defmodule ExploComm.Twilio do
 
   There are some configuration options you can set for this module in `config.exs` as such:
 
-      config ExploComm,
+      config :explo_comm,
         twilio_account_id: "account_id",
         twilio_api_token: "password",
         twilio_api_url: "https://api.twilio.com/2010-04-0",
@@ -67,26 +67,26 @@ defmodule ExploComm.Twilio do
   end
 
   defp account_id() do
-    Application.get_env(ExploComm, :twilio_account_id) ||
+    Application.get_env(:explo_comm, :twilio_account_id) ||
       raise """
-      Missing configuration variable ExploComm, :twilio_account_id
+      Missing configuration variable :explo_comm, :twilio_account_id
       """
   end
 
   defp api_token() do
-    Application.get_env(ExploComm, :twilio_api_token) ||
+    Application.get_env(:explo_comm, :twilio_api_token) ||
       raise """
-      Missing configuration variable ExploComm, :twilio_api_token
+      Missing configuration variable :explo_comm, :twilio_api_token
       """
   end
 
   defp api_url() do
-    Application.get_env(ExploComm, :twilio_api_url) ||
+    Application.get_env(:explo_comm, :twilio_api_url) ||
       "https://api.twilio.com/2010-04-01"
   end
 
   defp default_from() do
-    Application.get_env(ExploComm, :twilio_default_from) ||
+    Application.get_env(:explo_comm, :twilio_default_from) ||
       "+14158539756"
   end
 end

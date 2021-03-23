@@ -6,7 +6,7 @@ defmodule ExploComm.Mandrill do
 
   You'll need to set the following configuration keys to use this module:
 
-      config ExploComm,
+      config :explo_comm,
         mandrill_api_key: "yer_key_here",
         mandrill_api_url: "https://mandrillapp.com/api/1.0/"
         mandrill_default_from: "EXPLO IT",
@@ -52,24 +52,24 @@ defmodule ExploComm.Mandrill do
   end
 
   defp api_key() do
-    Application.get_env(ExploComm, :mandrill_api_key) ||
+    Application.get_env(:explo_comm, :mandrill_api_key) ||
       raise """
-      Missing configuration variable ExploComm, :mandrill_api_key
+      Missing configuration variable :explo_comm, :mandrill_api_key
       """
   end
 
   defp api_url() do
-    Application.get_env(ExploComm, :mandrill_api_url) ||
+    Application.get_env(:explo_comm, :mandrill_api_url) ||
       "https://mandrillapp.com/api/1.0/"
   end
 
   defp default_from() do
-    Application.get_env(ExploComm, :mandrill_default_from) ||
+    Application.get_env(:explo_comm, :mandrill_default_from) ||
       "EXPLO Robot"
   end
 
   defp default_from_email() do
-    Application.get_env(ExploComm, :mandrill_default_from_email) ||
+    Application.get_env(:explo_comm, :mandrill_default_from_email) ||
       "it@explo.org"
   end
 
