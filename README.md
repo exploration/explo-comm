@@ -16,7 +16,7 @@ The package can be installed by adding `explo` to your list of dependencies in
 ```elixir
 def deps do
   [
-    {:explo_comm, git: "bitbucket.org:explo/explo-comm.git"},
+    {:explo_comm, git: "github.com:exploration/explo-comm.git"},
   ]
 end
 ```
