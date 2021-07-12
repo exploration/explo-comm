@@ -54,8 +54,8 @@ defmodule ExploComm.Twilio do
       iex> Twilio.send_sms("my message", "6171234567")
       {:ok, %HTTPoison.Response{}}
   """
-  @spec send_sms(String.t(), String.t(), keyword()) ::
-          {:ok, HTTPoison.Response.t()} | {:error, HTTPoison.Error.t()}
+  @spec send_sms(message :: String.t(), recipient :: String.t(), keyword()) ::
+          ExploComm.response()
   def send_sms(message, to, options \\ []) do
     from = Keyword.get(options, :from) || default_from()
     body = URI.encode_query(%{From: from, To: to, Body: message})
