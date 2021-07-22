@@ -18,12 +18,14 @@ defmodule ExploComm.Email do
           from_name: String.t(),
           from_email: String.t(),
           to: list(ExploComm.Email.Recipient.t()),
-          headers: list(map),
           subject: String.t(),
           html: String.t(),
-          text: String.t()
+          text: String.t(),
+          headers: list(map),
+          attachments: list(ExploComm.Email.Attachment.t()),
+          images: list(ExploComm.Email.Attachment.t()),
         }
 
   @enforce_keys [:from_email, :to, :subject, :html]
-  defstruct [:from_name, :from_email, :to, :subject, :html, :text, headers: []]
+  defstruct [:from_name, :from_email, :to, :subject, :html, :text, headers: [], attachments: [], images: []]
 end
